@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>PPR - Prótesis Parciales Removibles</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#F5F1EB; --sf:#FDFCFA; --dk:#1A1714; --md:#3A342E; --mu:#78706A;
+  --bd:#E0D8CE; --bd2:#C2B9AF;
+  --gd:#B08030; --gl:#D4A040; --gb:rgba(176,128,48,0.10);
+  --tl:#1A7055; --tb:rgba(26,112,85,0.10);
+  --rs:#8A3040; --rb:rgba(138,48,64,0.10);
+  --bl:#285888; --bb:rgba(40,88,136,0.09);
+}
+html,body{height:100%;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg); color:var(--dk); font-size:16px;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+/* HEADER */
+header{
+  background:#1C1710;
+  background:-webkit-linear-gradient(155deg,#1C1710 55%,#28200E);
+  background:linear-gradient(155deg,#1C1710 55%,#28200E);
+  padding-top:20px; padding-top:constant(safe-area-inset-top);
+  padding-top:env(safe-area-inset-top);
+  position:relative; overflow:hidden;
+}
+.hi{padding:32px 18px 28px;}
+.htag{
+  display:inline-block; font-size:10px; font-weight:600;
+  letter-spacing:0.18em; text-transform:uppercase; color:var(--gl);
+  border:1px solid rgba(176,128,48,0.3); padding:5px 11px;
+  border-radius:20px; margin-bottom:14px;
+}
+header h1{
+  font-size:28px; font-weight:700; line-height:1.15;
+  color:#FAF7F2; margin-bottom:8px;
+}
+@media(min-width:380px){header h1{font-size:34px;}}
+header h1 em{color:var(--gl); font-style:italic;}
+header .sub{font-size:13px; font-weight:300; color:rgba(250,247,242,0.58); margin-bottom:20px;}
+.hst{display:-webkit-flex; display:flex; gap:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08);}
+.sn{font-size:22px; font-weight:700; color:var(--gl); display:block; line-height:1;}
+.sl{font-size:10px; letter-spacing:0.08em; color:rgba(250,247,242,0.38); text-transform:uppercase; display:block; margin-top:2px;}
+/* BOTTOM NAV */
+.bnav{
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:rgba(24,20,14,0.96);
+  -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,0.07);
+  display:-webkit-flex; display:flex;
+  padding-bottom:8px;
+  padding-bottom:constant(safe-area-inset-bottom);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.ni{
+  -webkit-flex:1; flex:1; display:-webkit-flex; display:flex;
+  -webkit-flex-direction:column; flex-direction:column;
+  -webkit-align-items:center; align-items:center;
+  gap:2px; background:none; border:none; cursor:pointer;
+  padding:8px 2px; -webkit-appearance:none; appearance:none;
+  min-height:52px; -webkit-justify-content:center; justify-content:center;
+}
+.ni-ic{font-size:22px; line-height:1; display:block;}
+.ni-lb{font-size:9px; color:rgba(250,247,242,0.35); display:block; letter-spacing:0.02em;}
+.ni.on .ni-lb{color:var(--gl);}
+.ni.on .ni-ic{-webkit-filter:brightness(1.5); filter:brightness(1.5);}
+/* MAIN */
+main{max-width:600px; margin:0 auto; padding-bottom:90px;}
+section{display:none;}
+section.on{display:block;}
+/* UTILS */
+.stl{padding:22px 16px 0;}
+.stl h2{font-size:22px; font-weight:700; color:var(--dk); margin-bottom:4px;}
+.stl p{font-size:13px; color:var(--mu); line-height:1.55;}
+.bge{
+  display:inline-block; font-size:9.5px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase;
+  padding:3px 9px; border-radius:20px; margin-bottom:6px;
+}
+.ba{background:var(--gb); color:var(--gd);}
+.bb2{background:var(--tb); color:var(--tl);}
+.bc{background:var(--rb); color:var(--rs);}
+.hl{
+  margin:10px 16px; padding:13px 15px;
+  border-left:3px solid var(--gd); background:var(--gb);
+  border-radius:0 8px 8px 0; font-size:13px; color:var(--md);
+  line-height:1.65; font-style:italic;
+}
+.div2{
+  margin:16px 16px 4px; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center; gap:10px;
+}
+.div2 span{font-size:11px; font-weight:600; color:var(--mu); letter-spacing:0.06em; text-transform:uppercase; white-space:nowrap;}
+.div2:before,.div2:after{content:""; -webkit-flex:1; flex:1; height:1px; background:var(--bd);}
+/* PHOTO CARDS */
+.imgcard{
+  margin:10px 16px; background:var(--sf); border:1px solid var(--bd);
+  border-radius:12px; overflow:hidden;
+  -webkit-box-shadow:0 2px 14px rgba(26,23,20,0.10);
+  box-shadow:0 2px 14px rgba(26,23,20,0.10);
+}
+.imgcard svg{display:block; width:100%; height:auto;}
+.icap{padding:9px 13px 11px; display:-webkit-flex; display:flex; -webkit-align-items:flex-start; align-items:flex-start; -webkit-justify-content:space-between; justify-content:space-between; gap:8px;}
+.icap h4{font-size:13px; font-weight:600; color:var(--dk); margin-bottom:2px;}
+.icap p{font-size:11px; color:var(--mu); line-height:1.4;}
+.ibg{font-size:9px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gd); background:var(--gb); padding:3px 7px; border-radius:20px; white-space:nowrap; -webkit-flex-shrink:0; flex-shrink:0; margin-top:2px;}
+/* PHOTO GRID */
+.pgrid{display:-webkit-flex; display:flex; -webkit-flex-wrap:wrap; flex-wrap:wrap; gap:9px; margin:10px 16px;}
+.pgi{background:var(--sf); border:1px solid var(--bd); border-radius:12px; overflow:hidden; width:calc(50% - 5px); -webkit-box-shadow:0 1px 6px rgba(26,23,20,0.07); box-shadow:0 1px 6px rgba(26,23,20,0.07);}
+.pgi svg{display:block; width:100%; height:auto;}
+.pgl{padding:6px 9px 8px;}
+.pgl b{display:block; font-size:9px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gd); margin-bottom:2px;}
+.pgl span{font-size:11px; color:var(--md); line-height:1.35; display:block;}
+/* CONNECTOR CARDS */
+.cc{
+  background:var(--sf); border:1px solid var(--bd); border-radius:12px;
+  margin:9px 16px; overflow:hidden;
+  -webkit-box-shadow:0 1px 6px rgba(26,23,20,0.06);
+  box-shadow:0 1px 6px rgba(26,23,20,0.06);
+}
+.cctop{padding:12px 14px 9px; display:-webkit-flex; display:flex; -webkit-align-items:flex-start; align-items:flex-start; gap:10px; border-bottom:1px solid var(--bd);}
+.cnum{font-size:24px; font-weight:700; color:var(--bd2); line-height:1; -webkit-flex-shrink:0; flex-shrink:0; min-width:24px;}
+.ci h3{font-size:14px; font-weight:600; color:var(--dk); margin-bottom:1px;}
+.ci .cs{font-size:10.5px; color:var(--mu); font-style:italic;}
+.dw{background:#EDE8E0; border-bottom:1px solid var(--bd);}
+.dw svg{display:block; width:100%; height:auto;}
+.cdesc{padding:10px 14px 11px; font-size:13px; color:var(--md); line-height:1.62;}
+.pills{display:-webkit-flex; display:flex; -webkit-flex-wrap:wrap; flex-wrap:wrap; gap:5px; padding:0 14px 11px;}
+.pi{font-size:10.5px; padding:2px 9px; border-radius:20px; border:1px solid var(--bd); color:var(--mu); background:var(--bg);}
+.pg{background:var(--tb); border-color:rgba(26,112,85,0.25); color:var(--tl);}
+.pw{background:var(--gb); border-color:rgba(176,128,48,0.25); color:var(--gd);}
+.pp{background:var(--bb); border-color:rgba(40,88,136,0.2); color:var(--bl);}
+.pr{background:var(--rb); border-color:rgba(138,48,64,0.25); color:var(--rs);}
+/* TABLE */
+.tw{margin:9px 16px; background:var(--sf); border:1px solid var(--bd); border-radius:12px; overflow:hidden; -webkit-box-shadow:0 1px 6px rgba(26,23,20,0.06); box-shadow:0 1px 6px rgba(26,23,20,0.06);}
+.ts{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+table{width:100%; border-collapse:collapse; font-size:11.5px;}
+thead th{background:var(--dk); color:#FAF7F2; padding:9px 11px; text-align:left; font-size:9.5px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; white-space:nowrap;}
+tbody td{padding:9px 11px; border-bottom:1px solid var(--bd); color:var(--md); vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+.tn{font-weight:600; color:var(--dk);}
+/* INTRO GRID */
+.ig{display:-webkit-flex; display:flex; -webkit-flex-wrap:wrap; flex-wrap:wrap; gap:8px; margin:10px 16px 0;}
+.ii{background:var(--sf); border:1px solid var(--bd); border-radius:12px; padding:12px; width:calc(50% - 4px);}
+.ii-ic{font-size:19px; margin-bottom:6px; display:block;}
+.ii h3{font-size:12.5px; font-weight:600; color:var(--dk); margin-bottom:3px;}
+.ii p{font-size:11px; color:var(--mu); line-height:1.5;}
+.iif{width:100%;}
+/* ACCORDION */
+.ai{background:var(--sf); border:1px solid var(--bd); border-radius:12px; margin:8px 16px; overflow:hidden;}
+.ab{
+  width:100%; background:none; border:none; padding:14px;
+  display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:space-between; justify-content:space-between;
+  gap:10px; cursor:pointer; font-family:inherit; font-size:13.5px;
+  font-weight:600; color:var(--dk); text-align:left;
+  min-height:50px; -webkit-appearance:none; appearance:none;
+}
+.ab-arrow{-webkit-flex-shrink:0; flex-shrink:0; -webkit-transition:transform 0.25s; transition:transform 0.25s; color:var(--mu);}
+.ab.on .ab-arrow{-webkit-transform:rotate(180deg); transform:rotate(180deg);}
+.abb{max-height:0; overflow:hidden; -webkit-transition:max-height 0.3s ease; transition:max-height 0.3s ease;}
+.abd{padding:0 14px 13px; font-size:13px; color:var(--md); line-height:1.68;}
+.abd ul{padding-left:16px; margin-top:6px;}
+.abd li{margin-bottom:4px; color:var(--mu);}
+.abd p{margin-bottom:6px;}
+/* QUIZ */
+.qw{margin:9px 16px;}
+.qt{font-size:17px; font-weight:700; color:var(--dk); line-height:1.4; margin-bottom:14px;}
+.qc{font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--mu); margin-bottom:5px;}
+.qp{height:3px; background:var(--bd); border-radius:3px; margin-bottom:18px; overflow:hidden;}
+.qpf{height:100%; background:var(--gd); border-radius:3px; -webkit-transition:width 0.35s; transition:width 0.35s;}
+.qos{margin-bottom:13px;}
+.qo{
+  display:block; width:100%; background:var(--bg); border:1px solid var(--bd);
+  border-radius:8px; padding:12px 14px; font-size:13.5px; color:var(--md);
+  cursor:pointer; text-align:left; font-family:inherit; min-height:48px;
+  line-height:1.4; margin-bottom:8px;
+  -webkit-appearance:none; appearance:none;
+}
+.qo:last-child{margin-bottom:0;}
+.qo.ok{background:var(--tb); border-color:rgba(26,112,85,0.45); color:var(--tl); font-weight:600;}
+.qo.ko{background:var(--rb); border-color:rgba(138,48,64,0.35); color:var(--rs);}
+.qfb{padding:11px 14px; border-radius:8px; font-size:13px; line-height:1.55; margin-bottom:11px; display:none;}
+.qfb.vis{display:block;}
+.qfb.fok{background:var(--tb); color:var(--tl); border:1px solid rgba(26,112,85,0.3);}
+.qfb.fko{background:var(--rb); color:var(--rs); border:1px solid rgba(138,48,64,0.3);}
+.qn{
+  width:100%; background:var(--dk); color:#FAF7F2; border:none; border-radius:8px;
+  padding:13px; font-family:inherit; font-size:14px; font-weight:600;
+  cursor:pointer; display:none; min-height:48px;
+  -webkit-appearance:none; appearance:none;
+}
+.qscore{text-align:center; padding:24px 16px;}
+.qscore h3{font-size:21px; font-weight:700; color:var(--dk); margin-bottom:6px;}
+.qsc{font-size:64px; font-weight:700; color:var(--gd); display:block; line-height:1; margin:12px 0;}
+.qscore p{color:var(--mu); font-size:13.5px; margin-bottom:20px;}
+.qrt{
+  display:inline-block; background:var(--dk); color:#FAF7F2; border:none;
+  border-radius:8px; padding:12px 28px; font-family:inherit; font-size:14px;
+  font-weight:600; cursor:pointer; -webkit-appearance:none; appearance:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="hi">
+  <div class="htag">Odontologia Protesica</div>
+  <h1>Protesis Parciales<br><em>Removibles</em></h1>
+  <p class="sub">Conectores mayores y menores — imagenes, indicaciones, tablas y autoevaluacion.</p>
+  <div class="hst">
+    <div><span class="sn">8</span><span class="sl">Conectores mayores</span></div>
+    <div><span class="sn">4</span><span class="sl">Conectores menores</span></div>
+    <div><span class="sn">10</span><span class="sl">Preguntas quiz</span></div>
+  </div>
+</div>
+</header>
+
+<nav class="bnav" id="bnav">
+  <button class="ni on" id="nb0" onclick="showSec('intro',0)">
+    <span class="ni-ic">&#127968;</span><span class="ni-lb">Inicio</span>
+  </button>
+  <button class="ni" id="nb1" onclick="showSec('mayores',1)">
+    <span class="ni-ic">&#129463;</span><span class="ni-lb">Mayores</span>
+  </button>
+  <button class="ni" id="nb2" onclick="showSec('menores',2)">
+    <span class="ni-ic">&#128279;</span><span class="ni-lb">Menores</span>
+  </button>
+  <button class="ni" id="nb3" onclick="showSec('tabla',3)">
+    <span class="ni-ic">&#128203;</span><span class="ni-lb">Tabla</span>
+  </button>
+  <button class="ni" id="nb4" onclick="showSec('quiz',4)">
+    <span class="ni-ic">&#9999;&#65039;</span><span class="ni-lb">Quiz</span>
+  </button>
+</nav>
+<main>
+<section id="intro" class="on">
+<div class="stl"><span class="bge ba">Conceptos Basicos</span><h2>Que es una PPR?</h2><p>Aparato que restituye funcion y estetica en edentulismo parcial. Insertable y removible por el propio paciente.</p></div>
+<div class="imgcard"><svg viewBox="0 0 380 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="bg0" cx="48%" cy="38%" r="72%">
+  <stop offset="0%" stop-color="#33271A"/><stop offset="100%" stop-color="#130E07"/>
+</radialGradient>
+<linearGradient id="mc0" x1="0%" y1="0%" x2="100%" y2="0%">
+  <stop offset="0%" stop-color="#B8B0A8"/><stop offset="40%" stop-color="#E0D8D0"/>
+  <stop offset="65%" stop-color="#CCC4BC"/><stop offset="100%" stop-color="#A8A0A0"/>
+</linearGradient>
+<linearGradient id="th0" x1="0%" y1="0%" x2="0%" y2="100%">
+  <stop offset="0%" stop-color="#F2EDE5"/><stop offset="100%" stop-color="#D8D0C5"/>
+</linearGradient>
+<linearGradient id="pk0" x1="0%" y1="0%" x2="0%" y2="100%">
+  <stop offset="0%" stop-color="#E8A090"/><stop offset="100%" stop-color="#C07868"/>
+</linearGradient>
+</defs>
+<rect width="380" height="220" fill="url(#bg0)"/>
+<ellipse cx="190" cy="205" rx="140" ry="13" fill="rgba(0,0,0,0.42)"/>
+<path d="M52 122 Q56 147 72 155 Q92 164 110 158 L107 136 Q91 142 77 134 Q64 126 58 114Z" fill="url(#pk0)" opacity="0.9"/>
+<path d="M328 122 Q324 147 308 155 Q288 164 270 158 L273 136 Q289 142 303 134 Q316 126 322 114Z" fill="url(#pk0)" opacity="0.9"/>
+<path d="M66 108 Q190 92 314 108" fill="none" stroke="url(#mc0)" stroke-width="8.5" stroke-linecap="round"/>
+<path d="M70 106 Q190 90 310 106" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="2" stroke-linecap="round"/>
+<line x1="66" y1="108" x2="61" y2="120" stroke="#C8C0B8" stroke-width="5" stroke-linecap="round"/>
+<line x1="314" y1="108" x2="319" y2="120" stroke="#C8C0B8" stroke-width="5" stroke-linecap="round"/>
+<path d="M61 120 Q43 106 46 90 Q49 75 66 73" fill="none" stroke="#C8C0B8" stroke-width="4.5" stroke-linecap="round"/>
+<path d="M66 73 Q75 68 78 75" fill="none" stroke="#C8C0B8" stroke-width="4" stroke-linecap="round"/>
+<path d="M52 114 Q39 99 42 83" fill="none" stroke="rgba(255,255,255,0.27)" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M319 120 Q337 106 334 90 Q331 75 314 73" fill="none" stroke="#C8C0B8" stroke-width="4.5" stroke-linecap="round"/>
+<path d="M314 73 Q305 68 302 75" fill="none" stroke="#C8C0B8" stroke-width="4" stroke-linecap="round"/>
+<path d="M328 114 Q341 99 338 83" fill="none" stroke="rgba(255,255,255,0.27)" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="55" y="98" width="15" height="18" rx="3" fill="url(#th0)"/>
+<rect x="71" y="96" width="14" height="20" rx="3" fill="url(#th0)"/>
+<rect x="86" y="94" width="14" height="22" rx="3" fill="url(#th0)"/>
+<rect x="101" y="93" width="13" height="23" rx="3" fill="url(#th0)"/>
+<line x1="70" y1="98" x2="70" y2="114" stroke="rgba(180,168,154,0.4)" stroke-width="0.7"/>
+<line x1="85" y1="96" x2="85" y2="114" stroke="rgba(180,168,154,0.4)" stroke-width="0.7"/>
+<line x1="100" y1="94" x2="100" y2="113" stroke="rgba(180,168,154,0.4)" stroke-width="0.7"/>
+<rect x="55" y="99" width="4" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="72" y="97" width="4" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="87" y="95" width="4" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="259" y="93" width="13" height="23" rx="3" fill="url(#th0)"/>
+<rect x="273" y="94" width="14" height="22" rx="3" fill="url(#th0)"/>
+<rect x="288" y="96" width="14" height="20" rx="3" fill="url(#th0)"/>
+<rect x="303" y="98" width="15" height="18" rx="3" fill="url(#th0)"/>
+<line x1="272" y1="94" x2="272" y2="113" stroke="rgba(180,168,154,0.4)" stroke-width="0.7"/>
+<line x1="287" y1="96" x2="287" y2="114" stroke="rgba(180,168,154,0.4)" stroke-width="0.7"/>
+<line x1="302" y1="98" x2="302" y2="114" stroke="rgba(180,168,154,0.4)" stroke-width="0.7"/>
+<rect x="260" y="94" width="4" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="274" y="95" width="4" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="289" y="97" width="4" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<ellipse cx="64" cy="73" rx="11" ry="4.5" fill="#C0B8B0" opacity="0.95"/>
+<ellipse cx="64" cy="72" rx="7" ry="2.4" fill="rgba(255,255,255,0.3)"/>
+<ellipse cx="308" cy="73" rx="11" ry="4.5" fill="#C0B8B0" opacity="0.95"/>
+<ellipse cx="308" cy="72" rx="7" ry="2.4" fill="rgba(255,255,255,0.3)"/>
+<rect x="0" y="170" width="380" height="50" fill="rgba(0,0,0,0.5)"/>
+<rect x="12" y="180" width="8" height="4" rx="2" fill="#D4A040"/>
+<text x="24" y="186" font-family="-apple-system,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.7)">Conector mayor</text>
+<rect x="110" y="178" width="10" height="8" rx="2" fill="#3A7060" opacity="0.9"/>
+<text x="124" y="186" font-family="-apple-system,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.7)">Diente pilar</text>
+<rect x="195" y="180" width="4" height="10" rx="2" fill="#C0B8B0"/>
+<text x="203" y="186" font-family="-apple-system,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.7)">Conector menor</text>
+<path d="M290 183 Q298 176 302 184" fill="none" stroke="#C0B8B0" stroke-width="1.8"/>
+<text x="308" y="186" font-family="-apple-system,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.7)">Gancho</text>
+<rect x="12" y="198" width="55" height="9" rx="2" fill="rgba(232,160,144,0.4)"/>
+<text x="14" y="206" font-family="-apple-system,sans-serif" font-size="8" fill="rgba(255,255,255,0.6)">Base acrilica</text>
+<rect x="0" y="0" width="380" height="19" fill="rgba(0,0,0,0.6)"/>
+<text x="14" y="13" font-family="-apple-system,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.85)" font-weight="600">PPR Cromo-Cobalto - Vista Palatina/Lingual</text>
+</svg>
+<div class="icap"><div><h4>PPR de Cromo-Cobalto - Vista Palatina</h4><p>Marco metalico con conector mayor, ganchos, apoyos oclusales, base acrilica y dientes artificiales.</p></div><span class="ibg">Vista Superior</span></div></div>
+<p class="hl">La PPR integra: <strong>conector mayor</strong>, conectores menores, apoyos oclusales, retenedores (ganchos), base acrilica y dientes artificiales. Los conectores deben ser <strong>absolutamente rigidos</strong>.</p>
+<div class="div2"><span>Tipos de Conectores</span></div>
+<div class="pgrid">
+<div class="pgi"><svg viewBox="0 0 170 130" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="g1bg" cx="50%" cy="40%" r="70%"><stop offset="0%" stop-color="#2E2416"/><stop offset="100%" stop-color="#130E07"/></radialGradient>
+<linearGradient id="g1m" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D0C8C0"/><stop offset="45%" stop-color="#EAE4DC"/><stop offset="100%" stop-color="#B0A8A0"/></linearGradient>
+</defs>
+<rect width="170" height="130" fill="url(#g1bg)"/>
+<ellipse cx="85" cy="72" rx="70" ry="42" fill="rgba(180,100,80,0.12)" stroke="rgba(180,100,80,0.15)" stroke-width="1"/>
+<rect x="8" y="56" width="10" height="18" rx="2.5" fill="#3A7060" opacity="0.9"/>
+<rect x="20" y="54" width="9" height="20" rx="2.5" fill="#3A7060" opacity="0.75"/>
+<rect x="140" y="56" width="10" height="18" rx="2.5" fill="#3A7060" opacity="0.9"/>
+<rect x="151" y="54" width="9" height="20" rx="2.5" fill="#3A7060" opacity="0.75"/>
+<path d="M32 76 Q85 64 138 76" fill="none" stroke="url(#g1m)" stroke-width="7" stroke-linecap="round"/>
+<path d="M36 74 Q85 62 134 74" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="26" y1="66" x2="26" y2="76" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="144" y1="66" x2="144" y2="76" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse cx="16" cy="56" rx="9" ry="3.5" fill="#B8B0A8" opacity="0.9"/>
+<ellipse cx="16" cy="55" rx="5.5" ry="2" fill="rgba(255,255,255,0.3)"/>
+<ellipse cx="152" cy="56" rx="9" ry="3.5" fill="#B8B0A8" opacity="0.9"/>
+<ellipse cx="152" cy="55" rx="5.5" ry="2" fill="rgba(255,255,255,0.3)"/>
+<rect x="0" y="0" width="170" height="18" fill="rgba(0,0,0,0.62)"/>
+<text x="85" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#D4A040" font-weight="600">BARRA PALATINA UNICA</text>
+<text x="85" y="116" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="rgba(180,220,180,0.8)">Tercio posterior - Clase III-IV</text>
+</svg><div class="pgl"><b>Conector superior</b><span>Barra palatina unica</span></div></div>
+<div class="pgi"><svg viewBox="0 0 170 130" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="g2bg" cx="50%" cy="40%" r="70%"><stop offset="0%" stop-color="#2E2416"/><stop offset="100%" stop-color="#130E07"/></radialGradient>
+<radialGradient id="g2p" cx="50%" cy="45%" r="58%"><stop offset="0%" stop-color="#E0D8D0"/><stop offset="60%" stop-color="#C0B8B0"/><stop offset="100%" stop-color="#A0A0A0"/></radialGradient>
+</defs>
+<rect width="170" height="130" fill="url(#g2bg)"/>
+<ellipse cx="85" cy="80" rx="10" ry="8" fill="rgba(0,0,0,0.4)"/>
+<ellipse cx="85" cy="70" rx="65" ry="43" fill="url(#g2p)"/>
+<ellipse cx="85" cy="70" rx="54" ry="35" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+<path d="M42 54 Q85 46 128 54" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="8" y="56" width="10" height="18" rx="2.5" fill="#3A7060" opacity="0.9"/>
+<rect x="151" y="56" width="10" height="18" rx="2.5" fill="#3A7060" opacity="0.9"/>
+<rect x="0" y="0" width="170" height="18" fill="rgba(0,0,0,0.62)"/>
+<text x="85" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#D4A040" font-weight="600">PLACA PALATINA COMPLETA</text>
+<text x="85" y="116" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="rgba(180,220,180,0.8)">Maxima rigidez - Pocos pilares</text>
+</svg><div class="pgl"><b>Conector superior</b><span>Placa palatina completa</span></div></div>
+<div class="pgi"><svg viewBox="0 0 170 135" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="g3bg" cx="50%" cy="38%" r="68%"><stop offset="0%" stop-color="#241C10"/><stop offset="100%" stop-color="#0E0A05"/></radialGradient>
+<linearGradient id="g3lb" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D5CFC7"/><stop offset="40%" stop-color="#EDE7DF"/><stop offset="100%" stop-color="#ADA8A0"/></linearGradient>
+</defs>
+<rect width="170" height="135" fill="url(#g3bg)"/>
+<rect x="42" y="38" width="9" height="22" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="52" y="36" width="9" height="24" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="62" y="34" width="10" height="26" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="73" y="34" width="10" height="26" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="84" y="34" width="10" height="26" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="95" y="36" width="9" height="24" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="105" y="38" width="9" height="22" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="43" y="39" width="3" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="53" y="37" width="3" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<path d="M38 60 Q85 56 127 60" fill="none" stroke="rgba(200,100,80,0.45)" stroke-width="2"/>
+<path d="M24 98 Q85 86 146 98" fill="none" stroke="url(#g3lb)" stroke-width="9" stroke-linecap="round"/>
+<path d="M28 96 Q85 84 142 96" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="38" y1="88" x2="30" y2="98" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="132" y1="88" x2="140" y2="98" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="153" y1="60" x2="153" y2="98" stroke="#80C880" stroke-width="1.2"/>
+<text x="163" y="82" font-family="-apple-system,sans-serif" font-size="7" fill="#80C880">8mm</text>
+<rect x="0" y="0" width="170" height="18" fill="rgba(0,0,0,0.65)"/>
+<text x="85" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#D4A040" font-weight="600">BARRA LINGUAL</text>
+<text x="85" y="123" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7.5" fill="rgba(180,220,180,0.8)">Primera eleccion inferior</text>
+</svg><div class="pgl"><b>Primera eleccion inf.</b><span>Barra lingual &ge;8mm</span></div></div>
+<div class="pgi"><svg viewBox="0 0 170 135" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="g4bg" cx="50%" cy="38%" r="68%"><stop offset="0%" stop-color="#241C10"/><stop offset="100%" stop-color="#0E0A05"/></radialGradient>
+<linearGradient id="g4lp" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#B5AEA6"/><stop offset="50%" stop-color="#DDD5CD"/><stop offset="100%" stop-color="#ACA8A0"/></linearGradient>
+</defs>
+<rect width="170" height="135" fill="url(#g4bg)"/>
+<rect x="40" y="36" width="9" height="24" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="50" y="34" width="9" height="26" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="60" y="32" width="10" height="28" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="71" y="32" width="10" height="28" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="82" y="32" width="10" height="28" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="93" y="34" width="9" height="26" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="103" y="36" width="9" height="24" rx="2" fill="#D5CFC7" opacity="0.9"/>
+<rect x="36" y="35" width="80" height="42" rx="2.5" fill="url(#g4lp)" opacity="0.88"/>
+<rect x="36" y="35" width="80" height="8" rx="2.5" fill="rgba(255,255,255,0.22)"/>
+<path d="M14" y="100 Q85 90 156 100" fill="none" stroke="#B8B0A8" stroke-width="6" stroke-linecap="round"/>
+<path d="M14 100 Q85 90 156 100" fill="none" stroke="#B8B0A8" stroke-width="6" stroke-linecap="round"/>
+<path d="M18 98 Q85 88 152 98" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="36" y1="77" x2="24" y2="100" stroke="#A0A098" stroke-width="3" stroke-linecap="round"/>
+<line x1="116" y1="77" x2="128" y2="100" stroke="#A0A098" stroke-width="3" stroke-linecap="round"/>
+<rect x="0" y="0" width="170" height="18" fill="rgba(0,0,0,0.65)"/>
+<text x="85" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#D4A040" font-weight="600">PLACA LINGUAL</text>
+<text x="85" y="123" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7.5" fill="rgba(180,220,180,0.8)">Ferulizacion periodontal</text>
+</svg><div class="pgl"><b>Conector inferior</b><span>Placa lingual</span></div></div>
+</div>
+<div class="ig">
+<div class="ii"><span class="ii-ic">&#9881;&#65039;</span><h3>Conectores</h3><p>Integran todas las partes. Rigidez absoluta obligatoria.</p></div>
+<div class="ii"><span class="ii-ic">&#128208;</span><h3>Diseno</h3><p>Analisis clinico, radiografico y paralelizado.</p></div>
+<div class="ii iif"><span class="ii-ic">&#128279;</span><h3>Jerarquia estructural</h3><p>Los <strong>conectores mayores</strong> unen ambos lados del arco. Los <strong>conectores menores</strong> unen el mayor con retenedores, apoyos y bases.</p></div>
+<div class="ii"><span class="ii-ic">&#129460;</span><h3>Soporte</h3><p>Dentario, mucoso o mixto segun la Clasificacion de Kennedy.</p></div>
+<div class="ii"><span class="ii-ic">&#128260;</span><h3>Reciprocidad</h3><p>Cada retenedor necesita un componente opuesto para equilibrar fuerzas.</p></div>
+</div>
+<div style="height:14px"></div>
+</section>
+<section id="mayores">
+<div class="stl"><span class="bge ba">8 Tipos</span><h2>Conectores Mayores</h2><p>Unen los componentes bilaterales de la protesis. Requisito: rigidez absoluta.</p></div>
+<div class="div2"><span>Superiores - Palatinos</span></div>
+<div class="cc"><div class="cctop"><div class="cnum">01</div><div class="ci"><h3>Barra Palatina Unica</h3><div class="cs">Single palatal bar</div></div></div><div class="dw"><svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="120" fill="#EDE8E0"/>
+<ellipse cx="150" cy="65" rx="115" ry="46" fill="rgba(200,170,140,0.12)" stroke="#C8B8A8" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="12" y="52" width="14" height="19" rx="3.5" fill="#2A6A5A" opacity="0.85"/>
+<rect x="27" y="50" width="13" height="21" rx="3.5" fill="#2A6A5A" opacity="0.7"/>
+<rect x="255" y="52" width="14" height="19" rx="3.5" fill="#2A6A5A" opacity="0.85"/>
+<rect x="270" y="50" width="13" height="21" rx="3.5" fill="#2A6A5A" opacity="0.7"/>
+<path d="M44 72 Q150 60 256 72" fill="none" stroke="#CCC4BC" stroke-width="7.5" stroke-linecap="round"/>
+<path d="M48 70 Q150 58 252 70" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="40" y1="62" x2="40" y2="72" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="260" y1="62" x2="260" y2="72" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse cx="22" cy="52" rx="10" ry="4" fill="#B8B0A8"/>
+<ellipse cx="22" cy="51" rx="6" ry="2.2" fill="rgba(255,255,255,0.3)"/>
+<ellipse cx="278" cy="52" rx="10" ry="4" fill="#B8B0A8"/>
+<ellipse cx="278" cy="51" rx="6" ry="2.2" fill="rgba(255,255,255,0.3)"/>
+<text x="150" y="54" text-anchor="middle" font-size="9" fill="#8A7060" font-family="-apple-system,sans-serif" font-weight="600">Tercio posterior del paladar - 8 mm</text>
+<text x="150" y="106" text-anchor="middle" font-size="9" fill="#1A7055" font-family="-apple-system,sans-serif">Clase III-IV Kennedy - Minima cobertura palatina</text>
+</svg></div><div class="cdesc">Barra metalica estrecha (~8 mm) en el tercio posterior del paladar. Minima cobertura de tejido palatino. Rigidez moderada.</div><div class="pills"><span class="pi pg">Minima cobertura</span><span class="pi pw">Rigidez media</span><span class="pi pp">Clase III-IV Kennedy</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">02</div><div class="ci"><h3>Doble Barra Palatina</h3><div class="cs">Anteroposterior palatal bar</div></div></div><div class="dw"><svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="120" fill="#EDE8E0"/>
+<rect x="12" y="52" width="14" height="19" rx="3.5" fill="#2A6A5A" opacity="0.85"/>
+<rect x="27" y="50" width="13" height="21" rx="3.5" fill="#2A6A5A" opacity="0.7"/>
+<rect x="255" y="52" width="14" height="19" rx="3.5" fill="#2A6A5A" opacity="0.85"/>
+<rect x="270" y="50" width="13" height="21" rx="3.5" fill="#2A6A5A" opacity="0.7"/>
+<path d="M44 56 Q150 46 256 56" fill="none" stroke="#CCC4BC" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M48 54.5 Q150 44.5 252 54.5" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M44 80 Q150 70 256 80" fill="none" stroke="#CCC4BC" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M48 78.5 Q150 68.5 252 78.5" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="44" y1="56" x2="44" y2="80" stroke="#CCC4BC" stroke-width="4" stroke-linecap="round"/>
+<line x1="256" y1="56" x2="256" y2="80" stroke="#CCC4BC" stroke-width="4" stroke-linecap="round"/>
+<line x1="40" y1="64" x2="40" y2="73" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="260" y1="64" x2="260" y2="73" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<text x="150" y="40" text-anchor="middle" font-size="8.5" fill="#8A7060" font-family="-apple-system,sans-serif">Barra anterior</text>
+<text x="150" y="94" text-anchor="middle" font-size="8.5" fill="#8A7060" font-family="-apple-system,sans-serif">Barra posterior</text>
+<text x="150" y="112" text-anchor="middle" font-size="9" fill="#1A7055" font-family="-apple-system,sans-serif">Alta rigidez - Efecto viga en L - Clase I-II Kennedy</text>
+</svg></div><div class="cdesc">Dos barras unidas por elementos laterales creando efecto viga en L. Alta rigidez sin cubrir totalmente el paladar.</div><div class="pills"><span class="pi pg">Alta rigidez</span><span class="pi pw">Cobertura moderada</span><span class="pi pp">Clase I-II Kennedy</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">03</div><div class="ci"><h3>Placa Palatina Completa</h3><div class="cs">Full palatal plate</div></div></div><div class="dw"><svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="d3bg" cx="50%" cy="40%" r="70%"><stop offset="0%" stop-color="#2E2618"/><stop offset="100%" stop-color="#140E08"/></radialGradient>
+<radialGradient id="d3p" cx="50%" cy="45%" r="56%"><stop offset="0%" stop-color="#DDD5CD"/><stop offset="60%" stop-color="#C0B8B0"/><stop offset="100%" stop-color="#A0A0A0"/></radialGradient>
+</defs>
+<rect width="300" height="140" fill="url(#d3bg)"/>
+<ellipse cx="150" cy="128" rx="110" ry="9" fill="rgba(0,0,0,0.4)"/>
+<ellipse cx="150" cy="76" rx="102" ry="58" fill="url(#d3p)"/>
+<ellipse cx="150" cy="76" rx="86" ry="46" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+<path d="M74 57 Q150 48 226 57" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="14" y="62" width="14" height="20" rx="3.5" fill="#3A7060" opacity="0.9"/>
+<rect x="271" y="62" width="14" height="20" rx="3.5" fill="#3A7060" opacity="0.9"/>
+<rect x="0" y="0" width="300" height="18" fill="rgba(0,0,0,0.62)"/>
+<text x="150" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#D4A040" font-weight="600">Placa Palatina Completa - Cromo-Cobalto</text>
+<rect x="58" y="68" width="184" height="24" rx="4" fill="rgba(0,0,0,0.5)"/>
+<text x="150" y="79" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8.5" fill="#FAF7F2">Cobertura total del paladar duro</text>
+<text x="150" y="91" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#D4A040">Maxima rigidez y soporte mucoso</text>
+</svg></div><div class="cdesc">Cubre la mayor parte del paladar duro. Maxima rigidez y distribucion de cargas. Indicado cuando los pilares son escasos.</div><div class="pills"><span class="pi pg">Maxima rigidez</span><span class="pi pw">Cobertura total</span><span class="pi pp">Pocos pilares remanentes</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">04</div><div class="ci"><h3>Conector en Herradura (U)</h3><div class="cs">U-shaped / horseshoe connector</div></div></div><div class="dw"><svg viewBox="0 0 300 148" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="d4bg" cx="50%" cy="40%" r="70%"><stop offset="0%" stop-color="#2E2618"/><stop offset="100%" stop-color="#140E08"/></radialGradient>
+<linearGradient id="d4m" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C8C0B8"/><stop offset="50%" stop-color="#E5DDD5"/><stop offset="100%" stop-color="#B0A8A0"/></linearGradient>
+</defs>
+<rect width="300" height="148" fill="url(#d4bg)"/>
+<ellipse cx="150" cy="135" rx="115" ry="10" fill="rgba(0,0,0,0.4)"/>
+<path d="M34 46 L34 104 Q150 132 266 104 L266 46" fill="none" stroke="url(#d4m)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M38 46 L38 102 Q150 128 262 102 L262 46" fill="none" stroke="rgba(255,255,255,0.24)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="150" cy="82" rx="80" ry="40" fill="rgba(18,12,6,0.7)"/>
+<text x="150" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Centro libre</text>
+<text x="150" y="91" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8.5" fill="rgba(200,160,100,0.5)">(torus palatino)</text>
+<rect x="14" y="44" width="13" height="20" rx="3" fill="#3A7060" opacity="0.85"/>
+<rect x="272" y="44" width="13" height="20" rx="3" fill="#3A7060" opacity="0.85"/>
+<rect x="0" y="0" width="300" height="18" fill="rgba(0,0,0,0.65)"/>
+<text x="150" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#D4A040" font-weight="600">Conector en Herradura (U) - Vista Oclusal</text>
+</svg></div><div class="cdesc">Deja libre el centro del paladar. Solo cuando hay torus palatino central inoperable. Poca rigidez e interferencia fonetica.</div><div class="pills"><span class="pi pr">Poca rigidez</span><span class="pi pw">Solo con torus central</span><span class="pi pr">Interferencia fonetica</span></div></div>
+<div class="div2"><span>Inferiores - Linguales</span></div>
+<div class="cc"><div class="cctop"><div class="cnum">05</div><div class="ci"><h3>Barra Lingual</h3><div class="cs">Lingual bar - primera eleccion inferior</div></div></div><div class="dw"><svg viewBox="0 0 300 158" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="d5bg" cx="50%" cy="38%" r="68%"><stop offset="0%" stop-color="#241A10"/><stop offset="100%" stop-color="#0E0A05"/></radialGradient>
+<linearGradient id="d5lb" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D5CFC7"/><stop offset="40%" stop-color="#EDE7DF"/><stop offset="100%" stop-color="#ADA8A0"/></linearGradient>
+</defs>
+<rect width="300" height="158" fill="url(#d5bg)"/>
+<rect x="74" y="52" width="11" height="24" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="86" y="50" width="11" height="26" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="98" y="48" width="12" height="28" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="111" y="48" width="12" height="28" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="124" y="48" width="12" height="28" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="137" y="50" width="11" height="26" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="149" y="52" width="11" height="24" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="75" y="53" width="3" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<rect x="87" y="51" width="3" height="7" rx="1" fill="rgba(255,255,255,0.22)"/>
+<path d="M68 76 Q115 72 166 76" fill="none" stroke="rgba(200,100,80,0.45)" stroke-width="2"/>
+<path d="M46 108 Q115 96 244 108" fill="none" stroke="url(#d5lb)" stroke-width="9" stroke-linecap="round"/>
+<path d="M50 106 Q115 94 240 106" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="68" y1="98" x2="58" y2="108" stroke="#A8A098" stroke-width="4" stroke-linecap="round"/>
+<line x1="166" y1="98" x2="178" y2="108" stroke="#A8A098" stroke-width="4" stroke-linecap="round"/>
+<path d="M18 138 Q115 150 272 138" fill="none" stroke="rgba(180,100,80,0.2)" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="258" y1="76" x2="258" y2="108" stroke="#80C880" stroke-width="1.2"/>
+<line x1="254" y1="76" x2="262" y2="76" stroke="#80C880" stroke-width="1"/>
+<line x1="254" y1="108" x2="262" y2="108" stroke="#80C880" stroke-width="1"/>
+<text x="276" y="94" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7.5" fill="#80C880">8mm</text>
+<rect x="0" y="0" width="300" height="18" fill="rgba(0,0,0,0.65)"/>
+<text x="150" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#D4A040" font-weight="600">Barra Lingual - Vista Frontal-Lingual</text>
+</svg></div><div class="cdesc">Seccion en media luna. Entre el margen gingival libre y el piso de boca. Requiere 8 mm de espacio. Primera eleccion inferior.</div><div class="pills"><span class="pi pg">Minima cobertura</span><span class="pi pg">Primera eleccion</span><span class="pi pp">Requiere mas de 8mm</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">06</div><div class="ci"><h3>Placa Lingual</h3><div class="cs">Linguoplate / lingual plate</div></div></div><div class="dw"><svg viewBox="0 0 300 155" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="d6bg" cx="50%" cy="38%" r="68%"><stop offset="0%" stop-color="#241A10"/><stop offset="100%" stop-color="#0E0A05"/></radialGradient>
+<linearGradient id="d6lp" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#B8B0A8"/><stop offset="50%" stop-color="#DDD5CD"/><stop offset="100%" stop-color="#ACA8A0"/></linearGradient>
+</defs>
+<rect width="300" height="155" fill="url(#d6bg)"/>
+<rect x="70" y="48" width="11" height="24" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="82" y="46" width="11" height="26" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="94" y="44" width="12" height="28" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="107" y="44" width="12" height="28" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="120" y="44" width="12" height="28" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="133" y="46" width="11" height="26" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="145" y="48" width="11" height="24" rx="2.5" fill="#D5D0C8" opacity="0.9"/>
+<rect x="66" y="47" width="94" height="42" rx="3" fill="url(#d6lp)" opacity="0.88"/>
+<rect x="66" y="47" width="94" height="8" rx="3" fill="rgba(255,255,255,0.22)"/>
+<path d="M22 108 Q115 98 278 108" fill="none" stroke="#C8C0B8" stroke-width="6.5" stroke-linecap="round"/>
+<path d="M26 106 Q115 96 274 106" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="66" y1="89" x2="50" y2="108" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="160" y1="89" x2="178" y2="108" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<rect x="0" y="0" width="300" height="18" fill="rgba(0,0,0,0.65)"/>
+<text x="150" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#D4A040" font-weight="600">Placa Lingual (Linguoplate)</text>
+<rect x="52" y="128" width="196" height="18" rx="4" fill="rgba(26,112,85,0.2)" stroke="rgba(26,112,85,0.4)" stroke-width="1"/>
+<text x="150" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8.5" fill="#80C8A0">Feruliza pilares anteriores - Espacio menor de 8mm</text>
+</svg></div><div class="cdesc">Cubre las superficies linguales de los dientes anteriores inferiores. Indicada cuando el espacio es menor de 8 mm o se requiere ferulizacion.</div><div class="pills"><span class="pi pg">Feruliza pilares</span><span class="pi pw">Espacio menor de 8mm</span><span class="pi pr">Higiene mas dificil</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">07</div><div class="ci"><h3>Barra Cingular (Kennedy)</h3><div class="cs">Continuous cingulum bar</div></div></div><div class="dw"><svg viewBox="0 0 300 122" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="122" fill="#EDE8E0"/>
+<rect x="74" y="38" width="11" height="24" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="87" y="36" width="11" height="26" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="100" y="34" width="12" height="28" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="114" y="34" width="12" height="28" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="128" y="34" width="12" height="28" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="142" y="36" width="11" height="26" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="155" y="38" width="11" height="24" rx="3" fill="#2A6A5A" opacity="0.75"/>
+<rect x="74" y="54" width="93" height="6" rx="2" fill="rgba(40,88,136,0.22)" stroke="rgba(40,88,136,0.45)" stroke-width="1"/>
+<text x="121" y="51" text-anchor="middle" font-size="8.5" fill="#285888" font-family="-apple-system,sans-serif">Cingulos</text>
+<path d="M72 58 L169 58" fill="none" stroke="#C5BDB5" stroke-width="6" stroke-linecap="round"/>
+<path d="M74 56.8 L167 56.8" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M22 96 Q121 86 228 96" fill="none" stroke="#C5BDB5" stroke-width="6" stroke-linecap="round"/>
+<line x1="72" y1="58" x2="58" y2="96" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="169" y1="58" x2="184" y2="96" stroke="#A8A098" stroke-width="3.5" stroke-linecap="round"/>
+<text x="121" y="114" text-anchor="middle" font-size="9" fill="#1A7055" font-family="-apple-system,sans-serif">Sin cobertura gingival - Torus lingual</text>
+</svg></div><div class="cdesc">Se apoya sobre los cingulos de los dientes anteriores inferiores. No contacta tejido gingival. Util con torus lingual.</div><div class="pills"><span class="pi pg">Sin cobertura gingival</span><span class="pi pp">Torus lingual</span><span class="pi pw">Cingulos desarrollados</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">08</div><div class="ci"><h3>Barra Labial (Vestibular)</h3><div class="cs">Labial / vestibular bar</div></div></div><div class="dw"><svg viewBox="0 0 300 122" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="122" fill="#EDE8E0"/>
+<text x="150" y="18" text-anchor="middle" font-size="9" fill="#9A7040" font-family="-apple-system,sans-serif">Inclinacion lingual severa</text>
+<rect x="92" y="30" width="12" height="26" rx="3" fill="#2A6A5A" opacity="0.75" transform="rotate(-12,98,43)"/>
+<rect x="106" y="27" width="12" height="28" rx="3" fill="#2A6A5A" opacity="0.75" transform="rotate(-7,112,41)"/>
+<rect x="120" y="25" width="13" height="30" rx="3" fill="#2A6A5A" opacity="0.75" transform="rotate(-3,127,40)"/>
+<rect x="135" y="25" width="13" height="30" rx="3" fill="#2A6A5A" opacity="0.75" transform="rotate(3,142,40)"/>
+<rect x="149" y="27" width="12" height="28" rx="3" fill="#2A6A5A" opacity="0.75" transform="rotate(7,155,41)"/>
+<rect x="163" y="30" width="12" height="26" rx="3" fill="#2A6A5A" opacity="0.75" transform="rotate(12,169,43)"/>
+<path d="M64 88 Q150 78 236 88" fill="none" stroke="#C5BDB5" stroke-width="7" stroke-linecap="round"/>
+<path d="M68 86 Q150 76 232 86" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1.4" stroke-linecap="round"/>
+<text x="150" y="74" text-anchor="middle" font-size="9" fill="#8A7050" font-weight="600" font-family="-apple-system,sans-serif">Barra por VESTIBULAR</text>
+<text x="150" y="108" text-anchor="middle" font-size="8.5" fill="#9A7058" font-family="-apple-system,sans-serif">Uso poco frecuente - indicacion especial</text>
+</svg></div><div class="cdesc">Se ubica por vestibular. Indicado exclusivamente cuando la inclinacion lingual severa impide colocar el conector por lingual.</div><div class="pills"><span class="pi pr">Uso poco frecuente</span><span class="pi pw">Inclinacion lingual severa</span></div></div>
+<div style="height:8px"></div></section>
+<section id="menores">
+<div class="stl"><span class="bge bb2">4 Tipos</span><h2>Conectores Menores</h2><p>Unen el conector mayor con retenedores, apoyos y bases. Recorrido interproximal obligatorio.</p></div>
+<p class="hl" style="border-left-color:var(--tl);background:var(--tb)">Los conectores menores <strong>no deben comprimir tejido gingival marginal</strong>. Adoptan forma troncoconica que converge hacia oclusal.</p>
+<div class="imgcard"><svg viewBox="0 0 380 195" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="bm" cx="50%" cy="38%" r="70%"><stop offset="0%" stop-color="#2A2018"/><stop offset="100%" stop-color="#110C07"/></radialGradient>
+<linearGradient id="mm" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D2CCC4"/><stop offset="40%" stop-color="#EAE4DC"/><stop offset="100%" stop-color="#B2AAA2"/></linearGradient>
+</defs>
+<rect width="380" height="195" fill="url(#bm)"/>
+<ellipse cx="190" cy="184" rx="155" ry="9" fill="rgba(0,0,0,0.4)"/>
+<path d="M36 118 Q190 104 344 118" fill="none" stroke="url(#mm)" stroke-width="8" stroke-linecap="round"/>
+<path d="M40 116 Q190 102 340 116" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="68" y="147" width="100" height="13" rx="3" fill="rgba(0,0,0,0.6)"/>
+<text x="118" y="157" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#D4A040" font-weight="600">A - CONECTOR MAYOR</text>
+<rect x="38" y="80" width="19" height="32" rx="4" fill="#3A7060" opacity="0.85"/>
+<rect x="59" y="76" width="19" height="36" rx="4" fill="#3A7060" opacity="0.75"/>
+<rect x="280" y="80" width="19" height="32" rx="4" fill="#3A7060" opacity="0.85"/>
+<rect x="301" y="76" width="19" height="36" rx="4" fill="#3A7060" opacity="0.75"/>
+<path d="M54 112 L63 112 L67 86 L50 86 Z" fill="#C5BDB5" opacity="0.92"/>
+<path d="M298 112 L307 112 L311 86 L294 86 Z" fill="#C5BDB5" opacity="0.92"/>
+<rect x="16" y="60" width="100" height="13" rx="3" fill="rgba(0,0,0,0.6)"/>
+<text x="66" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#90C890" font-weight="600">B - CONECTOR MENOR</text>
+<line x1="66" y1="73" x2="57" y2="86" stroke="#90C890" stroke-width="0.8" stroke-dasharray="2,2"/>
+<ellipse cx="47" cy="80" rx="13" ry="5" fill="url(#mm)" opacity="0.95"/>
+<ellipse cx="47" cy="79" rx="8" ry="2.7" fill="rgba(255,255,255,0.3)"/>
+<ellipse cx="290" cy="80" rx="13" ry="5" fill="url(#mm)" opacity="0.95"/>
+<rect x="148" y="44" width="84" height="13" rx="3" fill="rgba(0,0,0,0.6)"/>
+<text x="190" y="54" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#A0B8D0" font-weight="600">C - APOYO OCLUSAL</text>
+<line x1="170" y1="57" x2="98" y2="80" stroke="#A0B8D0" stroke-width="0.8" stroke-dasharray="2,2"/>
+<line x1="210" y1="57" x2="282" y2="80" stroke="#A0B8D0" stroke-width="0.8" stroke-dasharray="2,2"/>
+<rect x="82" y="118" width="88" height="30" rx="3" fill="none" stroke="#909088" stroke-width="1.3"/>
+<line x1="98" y1="118" x2="98" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="114" y1="118" x2="114" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="130" y1="118" x2="130" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="146" y1="118" x2="146" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="82" y1="130" x2="170" y2="130" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="82" y1="141" x2="170" y2="141" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<rect x="210" y="118" width="88" height="30" rx="3" fill="none" stroke="#909088" stroke-width="1.3"/>
+<line x1="226" y1="118" x2="226" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="242" y1="118" x2="242" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="258" y1="118" x2="258" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="274" y1="118" x2="274" y2="148" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="210" y1="130" x2="298" y2="130" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<line x1="210" y1="141" x2="298" y2="141" stroke="#909088" stroke-width="0.7" opacity="0.55"/>
+<rect x="32" y="160" width="136" height="13" rx="3" fill="rgba(0,0,0,0.6)"/>
+<text x="100" y="170" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#C8A8A0" font-weight="600">D - RED METALICA (MESH) - BASE ACRILICA</text>
+<rect x="0" y="0" width="380" height="18" fill="rgba(0,0,0,0.6)"/>
+<text x="14" y="12" font-family="-apple-system,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.85)" font-weight="600">Marco metalico completo - A, B, C y D</text>
+</svg>
+<div class="icap"><div><h4>Marco metalico completo - A, B, C y D</h4><p>A: Conector mayor - B: Conector menor - C: Apoyo oclusal - D: Red metalica hacia base acrilica</p></div><span class="ibg">Marco completo</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">A</div><div class="ci"><h3>Conector Menor Propiamente Dicho</h3><div class="cs">Mayor - Retenedor / Apoyo</div></div></div><div class="dw"><svg viewBox="0 0 300 138" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="138" fill="#EDE8E0"/>
+<rect x="60" y="46" width="26" height="54" rx="4" fill="#2A6A5A" opacity="0.78"/>
+<rect x="96" y="40" width="26" height="58" rx="4" fill="#2A6A5A" opacity="0.55"/>
+<line x1="86" y1="40" x2="86" y2="104" stroke="#EDE8E0" stroke-width="10"/>
+<text x="86" y="30" text-anchor="middle" font-size="8.5" fill="#8A7060" font-family="-apple-system,sans-serif">Espacio interproximal</text>
+<path d="M82 98 L90 98 L94 72 L78 72 Z" fill="#B8B0A8" opacity="0.9"/>
+<text x="148" y="70" font-size="9" fill="#8A7060" font-weight="600" font-family="-apple-system,sans-serif">Forma troncoconica</text>
+<line x1="98" y1="74" x2="140" y2="74" stroke="#C8B8A8" stroke-width="1" stroke-dasharray="3,2"/>
+<ellipse cx="73" cy="46" rx="13" ry="5" fill="#B8B0A8" opacity="0.92"/>
+<ellipse cx="73" cy="45" rx="7.5" ry="2.5" fill="rgba(255,255,255,0.3)"/>
+<text x="73" y="35" text-anchor="middle" font-size="8.5" fill="#8A7060" font-family="-apple-system,sans-serif">Apoyo oclusal</text>
+<rect x="26" y="100" width="215" height="7" rx="3" fill="#C0B8A8" opacity="0.7"/>
+<text x="134" y="117" text-anchor="middle" font-size="9" fill="#8A7060" font-family="-apple-system,sans-serif">Conector mayor</text>
+<line x1="86" y1="98" x2="86" y2="107" stroke="#A8A098" stroke-width="2.5" stroke-linecap="round"/>
+<text x="150" y="132" text-anchor="middle" font-size="9.5" fill="#1A7055" font-family="-apple-system,sans-serif">Transmite fuerzas oclusales al pilar</text>
+</svg></div><div class="cdesc">Elemento rigido troncoconico que discurre por el espacio interproximal. Conecta el conector mayor con los apoyos oclusales y retenedores directos sin comprimir la encia marginal.</div><div class="pills"><span class="pi pg">Transmite fuerzas al pilar</span><span class="pi pp">Recorrido interproximal</span><span class="pi pw">Forma troncoconica</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">B</div><div class="ci"><h3>Union Mayor - Base Acrilica</h3><div class="cs">Mayor - Base protesica (mesh)</div></div></div><div class="dw"><svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="130" fill="#EDE8E0"/>
+<rect x="26" y="34" width="248" height="7" rx="3" fill="#C0B8A8" opacity="0.7"/>
+<text x="150" y="24" text-anchor="middle" font-size="9" fill="#8A7060" font-family="-apple-system,sans-serif">Conector mayor</text>
+<rect x="64" y="43" width="172" height="48" rx="4" fill="none" stroke="#9A9088" stroke-width="1.5"/>
+<line x1="82" y1="43" x2="82" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="100" y1="43" x2="100" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="118" y1="43" x2="118" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="136" y1="43" x2="136" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="154" y1="43" x2="154" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="172" y1="43" x2="172" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="190" y1="43" x2="190" y2="91" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="64" y1="57" x2="236" y2="57" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="64" y1="71" x2="236" y2="71" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<line x1="64" y1="85" x2="236" y2="85" stroke="#9A9088" stroke-width="0.7" opacity="0.5"/>
+<text x="150" y="67" text-anchor="middle" font-size="9.5" fill="#9A9088" font-weight="600" font-family="-apple-system,sans-serif">Red metalica (mesh)</text>
+<rect x="64" y="91" width="172" height="20" rx="3" fill="rgba(40,88,136,0.14)" stroke="rgba(40,88,136,0.45)" stroke-width="1.2"/>
+<text x="150" y="105" text-anchor="middle" font-size="9" fill="#285888" font-family="-apple-system,sans-serif">Base acrilica + dientes artificiales</text>
+<text x="150" y="122" text-anchor="middle" font-size="9.5" fill="#1A7055" font-family="-apple-system,sans-serif">Retencion mecanica del acrilico</text>
+</svg></div><div class="cdesc">Une el conector mayor con la base acrilica. El diseno en red metalica (mesh) crea retencion mecanica para que el acrilico quede firmemente unido al esqueleto metalico.</div><div class="pills"><span class="pi pg">Retencion mecanica acrilico</span><span class="pi pp">Diseno en red o platina</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">C</div><div class="ci"><h3>Extension del Apoyo Oclusal</h3><div class="cs">Mayor - Apoyo oclusal</div></div></div><div class="dw"><svg viewBox="0 0 300 135" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="135" fill="#EDE8E0"/>
+<rect x="106" y="28" width="40" height="54" rx="5" fill="#2A6A5A" opacity="0.78"/>
+<ellipse cx="126" cy="30" rx="12" ry="4.5" fill="#1A5040" opacity="0.8"/>
+<ellipse cx="126" cy="30" rx="10" ry="3" fill="#C0B8A8" opacity="0.9"/>
+<text x="126" y="19" text-anchor="middle" font-size="9" fill="#8A7060" font-family="-apple-system,sans-serif">Apoyo oclusal</text>
+<path d="M120 33 L120 80 L134 80" fill="none" stroke="#C0B8A8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="178" y="58" font-size="9" fill="#8A7870" font-weight="600" font-family="-apple-system,sans-serif">Extension</text>
+<text x="178" y="70" font-size="9" fill="#8A7870" font-family="-apple-system,sans-serif">conector menor</text>
+<line x1="160" y1="63" x2="143" y2="63" stroke="#C8B8A8" stroke-width="1" stroke-dasharray="2,2"/>
+<rect x="26" y="82" width="215" height="7" rx="3" fill="#C0B8A8" opacity="0.7"/>
+<text x="134" y="100" text-anchor="middle" font-size="9" fill="#8A7060" font-family="-apple-system,sans-serif">Conector mayor</text>
+<text x="150" y="122" text-anchor="middle" font-size="9.5" fill="#1A7055" font-family="-apple-system,sans-serif">Soporte vertical - Previene hundimiento</text>
+</svg></div><div class="cdesc">Proyeccion rigida que une el apoyo oclusal con el conector mayor. Transmite las fuerzas verticales de la oclusion directamente al diente pilar.</div><div class="pills"><span class="pi pg">Soporte vertical</span><span class="pi pg">Previene hundimiento</span><span class="pi pp">Apoyo en fosa o cingulo</span></div></div>
+<div class="cc"><div class="cctop"><div class="cnum">D</div><div class="ci"><h3>Conector de Retenedor Indirecto</h3><div class="cs">Resiste rotacion del extremo libre</div></div></div><div class="dw"><svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+<rect width="300" height="140" fill="#EDE8E0"/>
+<path d="M16 74 Q150 48 284 74" fill="none" stroke="#D8D0C8" stroke-width="2" stroke-dasharray="4,3"/>
+<rect x="16" y="60" width="15" height="21" rx="3" fill="#2A6A5A" opacity="0.8"/>
+<rect x="33" y="57" width="15" height="23" rx="3" fill="#2A6A5A" opacity="0.7"/>
+<rect x="50" y="55" width="15" height="25" rx="3" fill="#2A6A5A" opacity="0.6"/>
+<rect x="218" y="60" width="15" height="21" rx="3" fill="#2A6A5A" opacity="0.8"/>
+<rect x="201" y="57" width="15" height="23" rx="3" fill="#2A6A5A" opacity="0.7"/>
+<rect x="238" y="58" width="52" height="23" rx="3" fill="rgba(26,20,14,0.07)" stroke="#C8B8A8" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="264" y="73" text-anchor="middle" font-size="8" fill="#9A8A78" font-family="-apple-system,sans-serif">Extremo libre</text>
+<path d="M44 84 Q150 76 256 84" fill="none" stroke="#C5BDB5" stroke-width="5.5" stroke-linecap="round"/>
+<line x1="31" y1="57" x2="52" y2="82" stroke="#285888" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse cx="31" cy="56" rx="8" ry="3.5" fill="#285888" opacity="0.9"/>
+<text x="31" y="44" text-anchor="middle" font-size="8.5" fill="#285888" font-weight="600" font-family="-apple-system,sans-serif">Ret. indirecto</text>
+<line x1="201" y1="71" x2="236" y2="71" stroke="#D4A040" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="218" y="102" text-anchor="middle" font-size="8" fill="#D4A040" font-family="-apple-system,sans-serif">Eje de rotacion</text>
+<path d="M253 84 Q263 98 255 110" fill="none" stroke="#8A3040" stroke-width="2"/>
+<text x="272" y="100" font-size="8" fill="#8A3040" font-family="-apple-system,sans-serif">Rotacion</text>
+<text x="150" y="130" text-anchor="middle" font-size="9.5" fill="#1A7055" font-family="-apple-system,sans-serif">Critico en Clase I y II de Kennedy</text>
+</svg></div><div class="cdesc">Une el conector mayor con el retenedor indirecto en el lado opuesto al extremo libre. Resiste el movimiento de rotacion de la base cuando el paciente abre la boca.</div><div class="pills"><span class="pi pg">Previene rotacion de base</span><span class="pi pr">Critico en Clase I y II</span><span class="pi pp">Lado opuesto al extremo libre</span></div></div>
+<div style="height:8px"></div></section>
+<section id="tabla">
+<div class="stl"><span class="bge bc">Sintesis Clinica</span><h2>Tablas Comparativas</h2><p>Resumen de todos los conectores. Desliza horizontalmente si es necesario.</p></div>
+<div class="div2"><span>Conectores Mayores</span></div>
+<div class="tw"><div class="ts"><table>
+<thead><tr><th>Conector Mayor</th><th>Arcada</th><th>Cobertura</th><th>Rigidez</th><th>Indicacion</th></tr></thead>
+<tbody>
+<tr><td class="tn">Barra palatina unica</td><td>Superior</td><td>Minima</td><td>Media</td><td>Clase III-IV</td></tr>
+<tr><td class="tn">Doble barra palatina</td><td>Superior</td><td>Moderada</td><td>Alta</td><td>Clase I-II</td></tr>
+<tr><td class="tn">Placa palatina completa</td><td>Superior</td><td>Total</td><td>Maxima</td><td>Pocos pilares</td></tr>
+<tr><td class="tn">Herradura (U)</td><td>Superior</td><td>Perimetral</td><td>Baja</td><td>Torus palatino</td></tr>
+<tr><td class="tn">Barra lingual</td><td>Inferior</td><td>Minima</td><td>Alta</td><td>1a eleccion 8mm+</td></tr>
+<tr><td class="tn">Placa lingual</td><td>Inferior</td><td>Moderada</td><td>Alta</td><td>Menos de 8mm</td></tr>
+<tr><td class="tn">Barra cingular</td><td>Inferior</td><td>Nula</td><td>Alta</td><td>Torus lingual</td></tr>
+<tr><td class="tn">Barra labial</td><td>Inferior</td><td>Nula lingual</td><td>Alta</td><td>Inclinacion lingual</td></tr>
+</tbody>
+</table></div></div>
+<div class="div2"><span>Conectores Menores</span></div>
+<div class="tw"><div class="ts"><table>
+<thead><tr><th>Tipo</th><th>Une</th><th>Funcion</th></tr></thead>
+<tbody>
+<tr><td class="tn">Conector menor propio</td><td>Mayor a Retenedor</td><td>Transmite fuerzas al pilar</td></tr>
+<tr><td class="tn">Union mayor-base</td><td>Mayor a Base acrilica</td><td>Retencion mecanica (mesh)</td></tr>
+<tr><td class="tn">Extension apoyo oclusal</td><td>Mayor a Apoyo</td><td>Soporte vertical</td></tr>
+<tr><td class="tn">Conector ret. indirecto</td><td>Mayor a Ret. indirecto</td><td>Resiste rotacion</td></tr>
+</tbody>
+</table></div></div>
+<div class="div2"><span>Clasificacion de Kennedy</span></div>
+<div class="tw"><div class="ts"><table>
+<thead><tr><th>Clase</th><th>Descripcion</th><th>Conector Sup.</th><th>Conector Inf.</th></tr></thead>
+<tbody>
+<tr><td class="tn">Clase I</td><td>Bilateral posterior</td><td>Doble barra</td><td>Barra lingual</td></tr>
+<tr><td class="tn">Clase II</td><td>Unilateral posterior</td><td>Doble barra</td><td>Barra lingual</td></tr>
+<tr><td class="tn">Clase III</td><td>Intercalar posterior</td><td>Barra unica</td><td>Barra lingual</td></tr>
+<tr><td class="tn">Clase IV</td><td>Intercalar anterior</td><td>Barra posterior</td><td>Barra lingual</td></tr>
+</tbody>
+</table></div></div>
+<div class="div2"><span>Indicaciones Clinicas</span></div>
+<div class="ai"><button class="ab" onclick="toggleAcc(this)">Indicaciones generales de la PPR<svg class="ab-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="abb"><div class="abd"><p>La PPR esta indicada cuando:</p><ul><li>Los espacios edentulos son extensos y no permiten protesis fija.</li><li>El paciente no es candidato a implantes.</li><li>Se requiere soporte mucoso adicional al dentario.</li><li>Existen perdidas oseas importantes.</li><li>El tratamiento es provisional.</li></ul></div></div></div>
+<div class="ai"><button class="ab" onclick="toggleAcc(this)">Contraindicaciones absolutas<svg class="ab-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="abb"><div class="abd"><ul><li>Higiene oral deficiente sin motivacion para mejorarla.</li><li>Enfermedad periodontal activa no controlada.</li><li>Insuficiente numero de pilares con buen pronostico.</li><li>Condiciones sistemicas graves no controladas.</li></ul></div></div></div>
+<div class="ai"><button class="ab" onclick="toggleAcc(this)">Requisitos del conector mayor<svg class="ab-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="abb"><div class="abd"><ul><li><strong>Rigidez:</strong> el requisito mas importante. Sin rigidez las fuerzas son perjudiciales.</li><li><strong>No comprimir tejido gingival:</strong> minimo 6 mm del margen gingival libre.</li><li><strong>Sin interferencia fonetica:</strong> especialmente los conectores anteriores.</li><li><strong>No presionar sobre torus</strong> ni prominencias anatomicas.</li></ul></div></div></div>
+<div class="ai"><button class="ab" onclick="toggleAcc(this)">Barra lingual vs. placa lingual<svg class="ab-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="abb"><div class="abd"><p><strong>Barra lingual:</strong> primera eleccion cuando existe espacio de 8 mm o mas. Mejor tolerancia y menor retencion de placa.</p><p><strong>Placa lingual:</strong> cuando el espacio es menor de 8 mm, hay torus lingual, o se requiere ferulizacion periodontal.</p></div></div></div>
+<div style="height:8px"></div></section>
+<section id="quiz">
+<div class="stl"><span class="bge ba">10 Preguntas</span><h2>Autoevaluacion</h2><p>Evalua tu comprension sobre conectores de PPR.</p></div>
+<div class="qw"><div id="qbox"></div></div>
+</section>
+</main>
+
+<script>
+/* ── NAVEGACION ── */
+function showSec(id, idx) {
+  var secs = document.querySelectorAll('section');
+  var nibs = document.querySelectorAll('.ni');
+  for (var i = 0; i < secs.length; i++) { secs[i].className = ''; }
+  for (var j = 0; j < nibs.length; j++) { nibs[j].className = 'ni'; }
+  document.getElementById(id).className = 'on';
+  nibs[idx].className = 'ni on';
+  window.scrollTo(0, 0);
+}
+
+/* ── ACCORDION ── */
+function toggleAcc(btn) {
+  var body = btn.nextElementSibling;
+  var isOpen = btn.className.indexOf('on') !== -1;
+  var allBtns = document.querySelectorAll('.ab');
+  for (var i = 0; i < allBtns.length; i++) {
+    allBtns[i].className = 'ab';
+    allBtns[i].nextElementSibling.style.maxHeight = '';
+  }
+  if (!isOpen) {
+    btn.className = 'ab on';
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+
+/* ── QUIZ ── */
+var QS = [{"q": "Funcion principal del conector mayor en PPR?", "o": ["Retener la protesis al pilar", "Unir componentes bilaterales del arco", "Distribuir fuerzas a dientes artificiales", "Aumentar retencion de la base"], "a": 1, "e": "El conector mayor une todos los componentes de ambos lados del arco, dando rigidez y distribuyendo cargas."}, {"q": "Minimo de mm para colocar una barra lingual inferior:", "o": ["3 mm", "5 mm", "8 mm", "12 mm"], "a": 2, "e": "La barra lingual necesita al menos 8 mm entre el margen gingival libre y el piso de boca."}, {"q": "Conector superior con pocos pilares y soporte oseo reducido:", "o": ["Barra palatina unica", "Doble barra palatina", "Conector en herradura", "Placa palatina completa"], "a": 3, "e": "La placa palatina completa ofrece maxima rigidez y distribucion de cargas sobre la mucosa."}, {"q": "Caracteristica imprescindible de todo conector en PPR:", "o": ["Ser estetico", "Ser rigido", "Ser translucido", "Ser acrilico"], "a": 1, "e": "La rigidez es el requisito fundamental; la flexibilidad genera fuerzas perjudiciales."}, {"q": "La placa lingual esta indicada especialmente cuando:", "o": ["Espacio lingual mayor de 10 mm", "Ferulizar dientes anteriores con movilidad", "Buen soporte oseo", "Clase IV de Kennedy"], "a": 1, "e": "La placa lingual feruliza los dientes anteriores, ideal en movilidad periodontal."}, {"q": "Conector menor que une el mayor con la base acrilica:", "o": ["Conector menor propiamente dicho", "Extension del apoyo oclusal", "Union mayor-base protesica", "Conector de retenedor indirecto"], "a": 2, "e": "La union mayor-base con diseno en red (mesh) proporciona retencion mecanica al acrilico."}, {"q": "En que clasificacion Kennedy es mas critico el retenedor indirecto?", "o": ["Clases III y IV", "Clases I y II (extremo libre)", "Todas por igual", "Solo clase IV"], "a": 1, "e": "En clases I y II la base tiende a rotar; el retenedor indirecto opuesto resiste ese movimiento."}, {"q": "Por donde deben discurrir los conectores menores?", "o": ["Por zonas edentulas", "Por espacios interproximales", "Por el centro del paladar", "Por vestibular de los pilares"], "a": 1, "e": "Los conectores menores discurren por espacios interproximales sin comprimir la encia marginal."}, {"q": "Conector inferior con inclinacion lingual severa de anteriores:", "o": ["Barra lingual", "Placa lingual", "Barra cingular", "Barra labial"], "a": 3, "e": "La barra labial (vestibular) es la indicacion especifica para inclinacion lingual severa."}, {"q": "Principio biomecanico que equilibra fuerzas laterales sobre el pilar:", "o": ["Principio de reciprocidad", "Principio de retencion", "Principio de soporte", "Principio de estabilidad"], "a": 0, "e": "El principio de reciprocidad exige un componente opuesto a todo elemento retentivo para equilibrar fuerzas laterales."}];
+var cur = 0, sc = 0, answered = false;
+
+function renderQ() {
+  var c = document.getElementById('qbox');
+  if (cur >= QS.length) {
+    var msg = sc >= 8 ? 'Excelente dominio del tema!' : sc >= 6 ? 'Buen resultado. Repasa los conceptos.' : 'Repasa el material e intentalo de nuevo.';
+    c.innerHTML = '<div class="qscore"><h3>Completado!</h3><span class="qsc">' + sc + '/' + QS.length + '</span><p>' + msg + '</p><button class="qrt" onclick="resetQ()">Reintentar</button></div>';
+    return;
+  }
+  var q = QS[cur];
+  var pct = Math.round(cur / QS.length * 100);
+  var opts = '';
+  for (var i = 0; i < q.o.length; i++) {
+    opts += '<button class="qo" onclick="pickAnswer(this,' + i + ')">' + q.o[i] + '</button>';
+  }
+  c.innerHTML = '<div class="qp"><div class="qpf" id="qpf" style="width:' + pct + '%"></div></div><p class="qc">Pregunta ' + (cur + 1) + ' de ' + QS.length + '</p><p class="qt">' + q.q + '</p><div class="qos">' + opts + '</div><div class="qfb" id="qfb"></div><button class="qn" id="qn" onclick="nextQ()">Siguiente</button>';
+  answered = false;
+}
+
+function pickAnswer(btn, idx) {
+  if (answered) { return; }
+  answered = true;
+  var q = QS[cur];
+  var allOpts = document.querySelectorAll('.qo');
+  for (var i = 0; i < allOpts.length; i++) {
+    allOpts[i].style.pointerEvents = 'none';
+  }
+  var fb = document.getElementById('qfb');
+  var nxt = document.getElementById('qn');
+  if (idx === q.a) {
+    btn.className = 'qo ok';
+    sc++;
+    fb.className = 'qfb vis fok';
+    fb.innerHTML = 'Correcto: ' + q.e;
+  } else {
+    btn.className = 'qo ko';
+    allOpts[q.a].className = 'qo ok';
+    fb.className = 'qfb vis fko';
+    fb.innerHTML = 'Incorrecto: ' + q.e;
+  }
+  nxt.style.display = 'block';
+}
+
+function nextQ() { cur++; renderQ(); }
+function resetQ() { cur = 0; sc = 0; renderQ(); }
+
+renderQ();
+</script>
+</body>
+</html>
